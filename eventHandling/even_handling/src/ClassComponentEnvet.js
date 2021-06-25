@@ -1,9 +1,41 @@
-import Rect, {Component} from 'react';
+import React, {Component} from 'react';
 
 class ClassComponentEnvet extends Component {
     state = {
         message: '',
-    };
+    }
+
+    constructor(props) {
+        super(props);
+        // this.handleChange = this.handleChange.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
+    }
+
+    // handleChange(e) {
+    //     this.setState({
+    //         message: e.target.value,
+    //     });
+    // }
+    //
+    // handleClick(e) {
+    //     alert(this.state.message);
+    //     this.setState({
+    //         message: '',
+    //     });
+    // }
+
+    handleChnage = (e) => {
+        this.setState({
+            message: e.target.value,
+        });
+    }
+
+    handleClick = (e) => {
+        alert(this.state.message);
+        this.setState({
+            message: '',
+        });
+    }
 
     render() {
         return (
@@ -13,22 +45,10 @@ class ClassComponentEnvet extends Component {
                        name="message"
                        placeholder="input anything"
                        value={this.state.message}
-                       onChange={
-                           async (e) => {
-                               await this.setState({
-                                   message: e.target.value
-                               });
-                               console.log(this.state.message);
-                           }
-                       }
+                       onChange={this.handleChnage}
                 />
                 <button
-                    onClick={() => {
-                        alert(this.state.message);
-                        this.setState({
-                            message: '',
-                        });
-                    }}
+                    onClick={this.handleClick}
                 >확인</button>
             </div>
         );
