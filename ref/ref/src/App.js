@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import CheckPassword from "./checkPassword";
+import ValidationSample from "./validation-sample";
+import CreateRef from "./create-ref";
 
 function App() {
   return (
-      <CheckPassword/>
+      <ValidationSample/>
   );
 }
 
