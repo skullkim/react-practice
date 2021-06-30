@@ -1,7 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const Counter = () => {
     const [value, setValue] = useState(0);
+
+    useEffect(() => {
+        console.log('effect');
+        console.log(value);
+        return () => {
+            console.log('cleanup');
+            console.log(value);
+        };
+    }, [value]);
 
     return (
         <div>
