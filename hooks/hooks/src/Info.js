@@ -1,38 +1,44 @@
-import React, {useState, useEffect} from 'react';
+import React, {useReducer} from 'react';
+
+function reducer(state, action) {
+    return {
+        ...state,
+        [action.name]: action.value,
+    };
+}
 
 const Info = () => {
-    const [name, setName] = useState('');
-    const [nickname, setNickname] = useState('');
+    const [state, dispatch] = useReducer(reducer, {
+        name: '',
+        nickname: '',
+    });
 
-    useEffect(() => {
-        console.log('rendering complete');
-        console.log(name);
-        return () => {
-            console.log('cleanup');
-            console.log(name);
-        };
-    }, [name]);
+    const {name, nickname} = state;
+    const onChange = (e) => {
+        //액션은 어떤 값이여도 상관 없다.
+        dispatch(e.target);
+    };
 
-    const onChangeName = (e) => {
-        setName(e.target.value);
-    }
-
-    const onChangeNickName = (e) => {
-        setNickname(e.target.value);
-    }
-
-    return(
+    return (
         <div>
             <div>
-                <input type="text" placeholder={"name"} onChange={onChangeName}/>
-                <input type="text" placeholder={"nickname"} onChange={onChangeNickName}/>
+                <input type="text"
+                       name={"name"}
+                       value={name}
+                       onChange={onChange}
+                />
+                <input type="text"
+                       name={"nickname"}
+                       value={nickname}
+                       onChange={onChange}
+                />
             </div>
             <div>
-                <div>name: {name}</div>
-                <div>nickname: {nickname}</div>
+                <div>이름: {name}</div>
             </div>
+            <div>닉네임: {nickname}</div>
         </div>
-    )
-}
+    );
+};
 
 export default Info;
