@@ -1,23 +1,12 @@
-import React, {useReducer} from 'react';
-
-function reducer(state, action) {
-    return {
-        ...state,
-        [action.name]: action.value,
-    };
-}
+import React from 'react';
+import useInputs from "./useInputs";
 
 const Info = () => {
-    const [state, dispatch] = useReducer(reducer, {
+    const [state, onChange] = useInputs({
         name: '',
         nickname: '',
     });
-
     const {name, nickname} = state;
-    const onChange = (e) => {
-        //액션은 어떤 값이여도 상관 없다.
-        dispatch(e.target);
-    };
 
     return (
         <div>
