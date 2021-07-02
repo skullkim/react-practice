@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import ClassComponentEvent from './ClassComponentEnvet';
+import FunctionalComponentEvent from './FunctionalComponentEvent';
 
 function App() {
   return (
-      <ClassComponentEvent/>
+      <FunctionalComponentEvent/>
+      // <ClassComponentEvent/>
   );
 }
 

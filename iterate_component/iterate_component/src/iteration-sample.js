@@ -19,7 +19,15 @@ const IterationSample = () => {
         setNames(next_name);//name 값을 업데이트 한다
         setInputText('');//text를 비운다
     }
-    const name_list = names.map(name => <li key={name.id}>{name.text}</li>);
+    const onRemove = (id) => {
+        const next_name = names.filter((name) => name.id !== id);
+        setNames(next_name);
+    }
+    const name_list = names.map(name => (
+        <li key={name.id} onDoubleClick={() => onRemove(name.id)}>
+            {name.text}
+        </li>
+    ));
     return(
         <div>
             <input value={input_text} onChange={onChange}/>
