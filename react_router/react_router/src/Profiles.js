@@ -1,14 +1,22 @@
 import React from 'react';
-import {Link, Route} from 'react-router-dom';
+import {NavLink, Route} from 'react-router-dom';
 import Profile from './Profile';
 
 const Profiles = () => {
+    const activeStyle = {
+        background: 'black',
+        color: 'white',
+    }
     return (
         <div>
             <h3>User list:</h3>
             <ul>
-                <li><Link to={"/profiles/velopert"}>velopert</Link></li>
-                <li><Link to={"/profiles/iskull"}>iskull</Link></li>
+                <li><NavLink activeStyle={activeStyle} to={"/profiles/velopert"}>
+                    velopert
+                </NavLink></li>
+                <li><NavLink activeStyle={activeStyle} to={"/profiles/iskull"}>
+                    iskull
+                </NavLink></li>
             </ul>
             {/*props설정시 값을 생략하면 자동을 true가 할당된다.*/}
             {/*Route에 render props를 넣어 컴포넌트 자체를 전달하는 것이 아닌*/}
