@@ -4,7 +4,7 @@ import {Route, Link} from 'react-router-dom';
 import Home from './Home';
 import About from './About'
 import Profiles from './Profiles';
-import HistorySample from "./HistorySample";
+import HistorySample from "./HistorySample"
 
 function App() {
   return (
