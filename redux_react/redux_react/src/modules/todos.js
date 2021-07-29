@@ -1,4 +1,6 @@
 import {createAction, handleActions} from 'redux-actions';
+import produce from "immer";
+
 //액션 타입 지정
 const CHANGE_INPUT = 'todos/CHNAGE_INPUT';
 const INSERT = 'todos/INSERT';
@@ -39,22 +41,25 @@ const initialState = {
 
 //createAction을 사용했기 때문에 모든 값은 action.payload로 조회 한다.
 const todos = handleActions({
-   [CHANGE_INPUT]: (state, action) => ({...state, input: action.payload}),
-   [INSERT]: (state, action) => ({
-      ...state,
-      todos: state.todos.concat(action.payload),
-   }),
+   [CHANGE_INPUT]: (state, {payload: input}) =>
+      produce(state, draft => {
+         draft.input = input;
+      }),
+   [INSERT]: (state, {payload: todo}) =>
+       produce(state, draft => {
+          draft.todos.push(todo);
+       }),
    //이와 같이 payload를 사용하는 대신 비구조화 할당을 통해 payload이름을 새로 설정할 수 있다.
-   [TOGGLE]: (state, {payload: id}) => ({
-      ...state,
-      todos: state.todos.map(todo =>
-          todo.id === id ? {...todo, done: !todo.done} : todo,
-      ),
-   }),
-   [REMOVE]: (state, action) => ({
-      ...state,
-      todos: state.todos.filter(todo => todo.id !== action.payload),
-   }),
+   [TOGGLE]: (state, {payload: id}) =>
+      produce(state, draft => {
+         const todo = draft.todos.find(todo => todo.id === id);
+         todo.done = !todo.done;
+      }),
+   [REMOVE]: (state, {payload: id}) =>
+      produce(state, draft => {
+         const index = draft.todos.findIndex(todo => todo.id === id);
+         draft.todos.splice(index, 1);
+      }),
 }, initialState);
 
 export default todos;
