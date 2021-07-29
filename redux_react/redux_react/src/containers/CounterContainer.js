@@ -1,27 +1,25 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch, useAction} from 'react-redux';
 import Counter from '../components/Counter';
 import {increase, decrease} from '../modules/counter';
 
-const CounterContainer = ({number, increase, decrease}) => {
+const CounterContainer = () => {
+    //useSelect()의 파라미터는 connect()의 첫 파라미터인
+    //mapStateToProps에 해당한다
+    const number = useSelector(state => state.counter.number);
+    //컴포넌트 내부에서 스토어의 내장 함수 dispatch를 사용할 수 있게 해준다
+    const dispatch = useDispatch();
+    const onIncrease = useCallback(() => dispatch(increase()), [dispatch]);
+    const onDecrease = useCallback(() => dispatch(decrease()), [decrease]);
     return (
-        <Counter number={number} onIncrease={increase} onDecrease={decrease}/>
+        <Counter
+            number={number}
+            onIncrease={onIncrease}
+            onDecrease={onDecrease}
+        />
     );
 };
 
+export default CounterContainer;
 
-//컴포넌트를 리덕스와 연동하기 위해 react-redux에서 제공하는 connect()를 사용해야 한다
-//connect는 첫 인자로 리덕스 스토어 안의 상태를 컴포넌트의 props로 넘겨주기 위한 설정 함수
-//두 번쨰 인자로 액션 생성 함수를 컴포넌트의 props로 넘겨주기 위한 함수를 사용한다.
-export default connect(
-    state => ({
-        number: state.counter.number,
-    }),
-    {
-        increase,
-        decrease,
-    },
-    //connect는 호출되면 또 다른 함수를 반환하는데, 이 함수의 인자로
-    //연동할 컴포넌트를 넣어 주면 된다.
-)(CounterContainer); //연동할 컴포넌
